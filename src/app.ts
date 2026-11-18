@@ -10,3 +10,6 @@ export function createApp() {
 
   return app;
 }
+
+// Deliberate lint error: unused variable. This PR must go red and must not merge.
+const unusedOnPurpose = 1;
