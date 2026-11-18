@@ -58,3 +58,11 @@ Changed: the plan named the 404 slug `not-a-member`; the contract uses `group-no
 Changed: the first contract said problem responses carry exactly `Content-Type: application/problem+json`, but Express adds `; charset=utf-8`. A smoke run caught it; the contract was clarified in its own commit with a changelog line (no behaviour change).
 Changed: with `express.json()` in front, a bad body for someone else's cap got `400 invalid-json` before the `403`. The route now reads the body as text and parses it at step 6, as the contract orders.
 Rejected: having the assistant write the contract tests too. Khoi writes them from the contract alone (task 6.2), which is the real test of whether a stranger could build a client from it.
+
+## 2026-11-18 — gitleaks secret scan in CI (Khoi, task 3.5)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: a secret-scan step in CI.
+Kept: running the gitleaks CLI (8.30.1, pinned, SHA-256 checked) over the whole history as a step in the required `checks` job, with `fetch-depth: 0` on checkout. A separate job would not block merges until it was added to branch protection.
+Changed: checked that the step can fail before trusting it: a local scan of the repo found no leaks (exit 0, 17 commits), and a scan of a scratch folder outside the repo with a fake AWS key exited 1. The exit codes were read with `PIPESTATUS`, not through `| tail` (see the scaffold entry).
+Rejected: `gitleaks/gitleaks-action`. It only scans the commits in the event, so a tag push scans nothing, and it needs write access to comment on PRs. The plain CLI scans everything with read-only permissions.
