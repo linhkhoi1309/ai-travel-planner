@@ -45,7 +45,9 @@ Why these statuses:
 ## 2. Errors
 
 Every 4xx or 5xx response from this endpoint is a **problem details** object
-(RFC 9457) with `Content-Type: application/problem+json`:
+(RFC 9457) with the media type `application/problem+json` (a `charset=utf-8`
+parameter may follow it, so clients compare the media type, not the whole
+header):
 
 ```http
 HTTP/1.1 400 Bad Request
@@ -273,9 +275,10 @@ Content-Type: application/problem+json
 
 ### Changelog
 
-| Date       | Version | Change         |
-| ---------- | ------- | -------------- |
-| 2026-11-18 | 1       | First version. |
+| Date       | Version | Change                                                                                                               |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-18 | 1       | First version.                                                                                                       |
+| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change. |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
