@@ -46,7 +46,7 @@ Asked for: a `CLAUDE.md` with Stack / Commands / Conventions / Never, the three 
 Kept: the four sections, the product-specific Never list, and the allow / ask / deny tiers.
 Changed: the first `settings.json` had `Bash(gh pr merge * --admin:*)`, which mixes the `:*` prefix form with a mid-pattern `*`; rewrote it as one `Bash(gh pr merge*--admin*)` rule.
 Changed: `npm run format:check` failed on my laptop but not in CI, because the course files (rubric, brief, IA#3 `CONTRACT.md`) sit untracked in the repo folder and Prettier checks them. They must not be committed, so they are excluded locally in `.git/info/exclude`; that does not stop Prettier, so they have to live outside the repo folder for a local run to match CI.
-Changed (by hand): Bao rewrote `CLAUDE.md` starting from his own IA#2 rules file. That file was about a different project (SQLite migration, worktrees, `MIGRATION.md`), so those parts were dropped. We kept its working rules (log every assisted task, end each answer with next steps), the Windows path-with-spaces advice, and added the brief's fixed rules to Never (PR #5, commit d247e1c).
+Changed (by hand): Bao rewrote `CLAUDE.md` starting from the rules file Bao wrote for IA#2. That file was about a different project (SQLite migration, worktrees, `MIGRATION.md`), so those parts were dropped. We kept its working rules (log every assisted task, end each answer with next steps), the Windows path-with-spaces advice, and added the brief's fixed rules to Never (PR #5, commit d247e1c).
 Rejected: committing the IA#2 `CLAUDE.md` as it was. An assistant rules file for another project would mislead the assistant here.
 
 ## 2026-11-18 — spending-cap contract and endpoint (Bao)
