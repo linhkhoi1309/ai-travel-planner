@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build and test output
+dist/
+coverage/
+
+# secrets: never commit real env files
+.env
+.env.*
+!.env.example
+
+# logs and OS files
+*.log
+.DS_Store
+Thumbs.db
