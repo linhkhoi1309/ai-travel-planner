@@ -17,10 +17,10 @@ Last updated: 2026-11-18 by Khoi.
 | 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                               | sent privately                                    |
 | 2.1 CI workflow                      | K     | Done                                               | `.github/workflows/ci.yml`, run 44291324404       |
 | 2.2 CI can fail                      | K     | Done                                               | PR #1 (red Lint, merge BLOCKED, closed)           |
-| 2.3 Branch protection                | K     | Done; screenshot still to add                      | `docs/branch-protection.png` (todo)               |
+| 2.3 Branch protection                | K     | Done                                               | `docs/branch-protection.png`                      |
 | 2.4 PR-only from now                 | K     | Done                                               | direct push rejected                              |
 | 2.5 CLAUDE.md draft                  | B     | **Next**                                           | branch `docs/claude-md`                           |
-| Day 2 AI-LOG entry                   | K     | Waiting for Bao's review                           | PR #2                                             |
+| Day 2 AI-LOG entry                   | K     | Done                                               | PR #2                                             |
 
 ## How we stay in sync
 
