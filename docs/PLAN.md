@@ -6,7 +6,7 @@ This assignment isn't about features. It checks four things: rules for your AI a
 
 ## Team status (update this table in every PR that finishes a task)
 
-Last updated: 2026-11-18 by Khoi.
+Last updated: 2026-11-18 by Bao.
 
 | Task                                 | Owner | Status                                             | Evidence                                          |
 | ------------------------------------ | ----- | -------------------------------------------------- | ------------------------------------------------- |
@@ -19,7 +19,12 @@ Last updated: 2026-11-18 by Khoi.
 | 2.2 CI can fail                      | K     | Done                                               | PR #1 (red Lint, merge BLOCKED, closed)           |
 | 2.3 Branch protection                | K     | Done; screenshot still to add                      | `docs/branch-protection.png` (todo)               |
 | 2.4 PR-only from now                 | K     | Done                                               | direct push rejected                              |
-| 2.5 CLAUDE.md draft                  | B     | **Next**                                           | branch `docs/claude-md`                           |
+| 2.5 CLAUDE.md draft                  | B     | PR open, waiting for review                        | PR #5                                             |
+| 3.1 `.env.example`                   | B     | PR open, waiting for review                        | PR #6                                             |
+| 3.2 3-tier permissions               | B     | PR open, waiting for review                        | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
+| 3.3 API key spending cap             | B     | **Todo** (Anthropic Console)                       | screenshot kept privately                         |
+| 4.1 Contract                         | B     | PR open; Khoi to review as a stranger (4.2)        | PR #7                                             |
+| 6.1 Endpoint code                    | B     | Draft PR, waits for #7                             | PR #8                                             |
 | Day 2 AI-LOG entry                   | K     | Waiting for Bao's review                           | PR #2                                             |
 
 ## How we stay in sync

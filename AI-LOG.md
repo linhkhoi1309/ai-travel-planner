@@ -38,3 +38,22 @@ Kept: one job `checks` with lint, format check, type check and tests as separate
 Changed: the first workflow used `actions/checkout@v4` and `actions/setup-node@v4`. The first green run carried a warning that both target the deprecated Node 20 runtime; bumped both to v7 (commit "ci: bump checkout and setup-node to v7").
 Changed: tested protection instead of trusting the settings page: a direct `git push origin main` was rejected ("protected branch hook declined"), and PR #1 with a deliberate unused variable went red on the Lint step and showed `BLOCKED`. PR #1 was closed, not merged.
 Rejected: the `gh` CLI suggested `gh pr merge --admin` to get past the block. We never bypass the gate; admins are included in the protection rule.
+
+## 2026-11-18 — CLAUDE.md, permissions, `.env.example` (Bao)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: a `CLAUDE.md` with Stack / Commands / Conventions / Never, the three permission tiers mirrored in `.claude/settings.json`, and `.env.example` (PRs #5, #6).
+Kept: the four sections, the product-specific Never list, and the allow / ask / deny tiers.
+Changed: the first `settings.json` had `Bash(gh pr merge * --admin:*)`, which mixes the `:*` prefix form with a mid-pattern `*`; rewrote it as one `Bash(gh pr merge*--admin*)` rule.
+Changed: `npm run format:check` failed on my laptop but not in CI, because the course files (rubric, brief, IA#3 `CONTRACT.md`) sit untracked in the repo folder and Prettier checks them. They must not be committed, so they are excluded locally in `.git/info/exclude`; that does not stop Prettier, so they have to live outside the repo folder for a local run to match CI.
+Rejected: nothing yet.
+
+## 2026-11-18 — spending-cap contract and endpoint (Bao)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: `docs/contract/spending-cap.md` with the IA#3 sections (PR #7), then the endpoint implemented from it (PR #8).
+Kept: the order of checks (auth, group, member, ownership, media type, JSON, fields, group total), the `needs-revalidation` rule for saved plans, and the seed in Appendix A.
+Changed: the plan named the 404 slug `not-a-member`; the contract uses `group-not-found` because "not a member" already tells an outsider the group exists.
+Changed: the first contract said problem responses carry exactly `Content-Type: application/problem+json`, but Express adds `; charset=utf-8`. A smoke run caught it; the contract was clarified in its own commit with a changelog line (no behaviour change).
+Changed: with `express.json()` in front, a bad body for someone else's cap got `400 invalid-json` before the `403`. The route now reads the body as text and parses it at step 6, as the contract orders.
+Rejected: having the assistant write the contract tests too. Khoi writes them from the contract alone (task 6.2), which is the real test of whether a stranger could build a client from it.
