@@ -8,19 +8,19 @@ This assignment isn't about features. It checks four things: rules for your AI a
 
 Last updated: 2026-11-18 by Khoi.
 
-| Task                                 | Owner | Status                                      | Evidence                                          |
-| ------------------------------------ | ----- | ------------------------------------------- | ------------------------------------------------- |
-| 1.1 Public repo                      | K     | Done; Bao still to be added as collaborator | https://github.com/linhkhoi1309/ai-travel-planner |
-| 1.2 `.gitignore` first               | K     | Done                                        | commit 93fccb2                                    |
-| 1.3 Scaffold + 4 checks              | K     | Done                                        | commit 8b72b0c                                    |
-| 1.4 AI-LOG.md                        | K     | Done                                        | `AI-LOG.md`                                       |
-| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                        | sent privately                                    |
-| 2.1 CI workflow                      | K     | Done                                        | `.github/workflows/ci.yml`, run 44291324404       |
-| 2.2 CI can fail                      | K     | Done                                        | PR #1 (red Lint, merge BLOCKED, closed)           |
-| 2.3 Branch protection                | K     | Done; screenshot still to add               | `docs/branch-protection.png` (todo)               |
-| 2.4 PR-only from now                 | K     | Done                                        | direct push rejected                              |
-| 2.5 CLAUDE.md draft                  | B     | **Next**                                    | branch `docs/claude-md`                           |
-| Day 2 AI-LOG entry                   | K     | Waiting for Bao's review                    | PR #2                                             |
+| Task                                 | Owner | Status                                             | Evidence                                          |
+| ------------------------------------ | ----- | -------------------------------------------------- | ------------------------------------------------- |
+| 1.1 Public repo                      | K     | Done; Bao (`gbao23127157`) added with Write access | https://github.com/linhkhoi1309/ai-travel-planner |
+| 1.2 `.gitignore` first               | K     | Done                                               | commit 93fccb2                                    |
+| 1.3 Scaffold + 4 checks              | K     | Done                                               | commit 8b72b0c                                    |
+| 1.4 AI-LOG.md                        | K     | Done                                               | `AI-LOG.md`                                       |
+| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                               | sent privately                                    |
+| 2.1 CI workflow                      | K     | Done                                               | `.github/workflows/ci.yml`, run 44291324404       |
+| 2.2 CI can fail                      | K     | Done                                               | PR #1 (red Lint, merge BLOCKED, closed)           |
+| 2.3 Branch protection                | K     | Done; screenshot still to add                      | `docs/branch-protection.png` (todo)               |
+| 2.4 PR-only from now                 | K     | Done                                               | direct push rejected                              |
+| 2.5 CLAUDE.md draft                  | B     | **Next**                                           | branch `docs/claude-md`                           |
+| Day 2 AI-LOG entry                   | K     | Waiting for Bao's review                           | PR #2                                             |
 
 ## How we stay in sync
 
