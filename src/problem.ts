@@ -10,9 +10,11 @@ export const PROBLEMS = {
   'member-not-found': { status: 404, title: 'Member not found' },
   'not-your-cap': { status: 403, title: 'Not your spending cap' },
   'unsupported-media-type': { status: 415, title: 'Unsupported media type' },
+  'payload-too-large': { status: 413, title: 'Payload too large' },
   'invalid-json': { status: 400, title: 'Malformed JSON' },
   validation: { status: 400, title: 'Invalid request' },
   'cap-exceeds-group-total': { status: 422, title: 'Cap exceeds group total' },
+  'method-not-allowed': { status: 405, title: 'Method not allowed' },
   internal: { status: 500, title: 'Internal error' },
 } as const;
 

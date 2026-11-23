@@ -16,7 +16,9 @@ export function parsePositiveId(raw: string | undefined): number | null {
 export function authenticate(req: Request, store: Store): number | null {
   const header = req.get('authorization');
   if (header === undefined) return null;
-  const match = /^Bearer ([^\s]+)$/i.exec(header.trim());
+  // RFC 9110 section 11: scheme case-insensitive, 1*SP before the token,
+  // whitespace around the whole value is not part of it (contract Appendix A).
+  const match = /^Bearer +(\S+)$/i.exec(header.trim());
   const userId = parsePositiveId(match?.[1]);
   if (userId === null || !store.users.has(userId)) return null;
   return userId;
