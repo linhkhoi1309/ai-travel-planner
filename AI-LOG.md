@@ -135,3 +135,11 @@ Asked for: re-run the fresh-clone test on the final `main`, then remove the "Bef
 Kept: the run. The public repo cloned at bb5861e into a new folder, Node 22.17.1: `npm ci`, `cp .env.example .env`, then lint, format check, type check and tests, each run bare: all exit 0, 107 tests passed. The server answered `/health` with 200, and a PUT of user 1's cap returned 200 with plan 1 flagged.
 Changed: the server was started with `tsx src/server.ts`, the command behind `npm run dev` without watch mode, so it could be stopped cleanly after the check.
 Rejected: nothing.
+
+## 2026-11-23 — npm audit in CI (Khoi)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: the `npm audit` step session 7 suggests, before the `pa2` tag.
+Kept: `npm audit --omit=dev --audit-level=high` as its own step after `npm ci`, and the same command in the README table, so CI and README still list the same commands. It passed locally before the PR (0 vulnerabilities, with and without dev dependencies).
+Changed: scoped it to what ships (`--omit=dev`) and to high and critical findings. The audit reads a live advisory database, so a new advisory in a test library two days before the deadline could otherwise turn CI red with no change from us; the Day 1 entry already saw 11 high findings in dev tooling.
+Rejected: `CODEOWNERS`. With two members it would only repeat the existing one-approval rule, and it would need a new protection setting and a new screenshot. The self-assessment now gives that reason.
