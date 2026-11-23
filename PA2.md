@@ -1,0 +1,24 @@
+# PA#2 — Harness and quality gate
+
+Team: Luong Linh Khoi (23127396), Nguyen Hoang Gia Bao (23127157).
+Endpoint: `PUT /v1/groups/{groupId}/members/{userId}/spending-cap`.
+
+| What the rubric asks for        | Link                                                                                                                                                                                                                                                                                                                         |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The repository                  | https://github.com/linhkhoi1309/ai-travel-planner                                                                                                                                                                                                                                                                            |
+| Protected-branch settings       | [`docs/branch-protection.png`](docs/branch-protection.png): `main` needs a PR with 1 approval, the `checks` status check, an up-to-date branch and resolved conversations. No bypass, admins included. No force pushes or deletions                                                                                          |
+| The blocked PR                  | [PR #13](https://github.com/linhkhoi1309/ai-travel-planner/pull/13), red on the Tests step ([run 45114456886](https://github.com/linhkhoi1309/ai-travel-planner/actions/runs/45114456886), [run 45114641521](https://github.com/linhkhoi1309/ai-travel-planner/actions/runs/45114641521)), merge blocked until it went green |
+| The commit that turned it green | [`b0109ba`](https://github.com/linhkhoi1309/ai-travel-planner/commit/b0109baf4819a2063cff083efaf251525387d32c) on PR #13: restores the ownership check in `src/` only ([run 45115019713](https://github.com/linhkhoi1309/ai-travel-planner/actions/runs/45115019713), green)                                                 |
+| The deliberate contract break   | [`ad4d740`](https://github.com/linhkhoi1309/ai-travel-planner/commit/ad4d740138223f365b81e722838aa4ca1cdff2c1) on PR #13: the route skips step 4 of contract 4.1, so user 1 can set user 2's cap (200 instead of `403 not-your-cap`). 5 of 107 tests went red; lint, format and type check stayed green                      |
+| The CI run for the `pa2` tag    | _Filled in after the tag is pushed (task 9.4)._                                                                                                                                                                                                                                                                              |
+
+## Where to look
+
+- **Rules file:** [`CLAUDE.md`](CLAUDE.md). Assistant permissions in three tiers: `CLAUDE.md` § Permissions and [`.claude/settings.json`](.claude/settings.json).
+- **Secrets:** [`.env.example`](.env.example) lists every variable without values. CI scans the whole git history with gitleaks on every run. The model, the spending cap and where the key lives are in the [README](README.md#model-and-spending-cap).
+- **Checks:** the four commands in the [README](README.md#checks) are the steps in [`.github/workflows/ci.yml`](.github/workflows/ci.yml), job `checks`.
+- **Contract:** [`docs/contract/spending-cap.md`](docs/contract/spending-cap.md) ([PR #7](https://github.com/linhkhoi1309/ai-travel-planner/pull/7), with the stranger review and one commit per answer).
+- **Contract tests:** [`tests/spendingCap.contract.test.ts`](tests/spendingCap.contract.test.ts), 106 tests written from the contract alone ([PR #12](https://github.com/linhkhoi1309/ai-travel-planner/pull/12)). They were red with no endpoint on `main` ([run 45110485174](https://github.com/linhkhoi1309/ai-travel-planner/actions/runs/45110485174)) and green once the endpoint ([PR #8](https://github.com/linhkhoi1309/ai-travel-planner/pull/8)) merged ([run 45113497823](https://github.com/linhkhoi1309/ai-travel-planner/actions/runs/45113497823)).
+- **Earlier proof that CI can fail:** [PR #1](https://github.com/linhkhoi1309/ai-travel-planner/pull/1), an unused variable, red on Lint ([run 44291612642](https://github.com/linhkhoi1309/ai-travel-planner/actions/runs/44291612642)), `BLOCKED`, then closed without merging.
+- **History:** every change to `main` since protection went on is a merged PR (`git log --first-parent main`). Nothing was rebased or force-pushed.
+- **AI use:** [`AI-LOG.md`](AI-LOG.md). Marks claimed: [`SELF_ASSESSMENT_REPORT.md`](SELF_ASSESSMENT_REPORT.md).

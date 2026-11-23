@@ -85,3 +85,11 @@ Changed: Khoi merged PR #4 while the first run was going, so the PR showed BEHIN
 Changed: the assistant paused after the red runs instead of pushing the fix at once, so Bao could screenshot the blocked merge first; the fix would have turned CI green within a minute and left no blocked state to capture.
 Changed: locally `npm run format:check` fails on `.claude/settings.local.json`, an ignored per-user file CI never sees. The assistant checked `src` and `tests` with Prettier directly and let CI's full format step confirm the rest.
 Rejected: touching `tests/` in either commit, and updating the `docs/PLAN.md` status table here. Open PR #11 rewrites that table, so the 6.3/6.4 rows go in #11 to avoid two PRs conflicting on it.
+
+## 2026-11-23 — PA2.md (Khoi, task 9.1)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: `PA2.md` with the six links the rubric names.
+Kept: one table, one row per rubric link, each pointing at a PR, a commit or a CI run read back with `gh run view`.
+Changed: the blocked PR is #13, not #1. PR #1 was closed and never turned green, so it cannot be "the PR that turned green"; #13 has both the red runs and the commit that greened it. PR #1 stays as earlier proof that CI can fail.
+Rejected: a guessed tag-run link. The `pa2` tag does not exist yet; the row says so and is filled in at task 9.4.
