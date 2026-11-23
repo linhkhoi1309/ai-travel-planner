@@ -104,6 +104,14 @@ Changed: the assistant paused after the red runs instead of pushing the fix at o
 Changed: locally `npm run format:check` fails on `.claude/settings.local.json`, an ignored per-user file CI never sees. The assistant checked `src` and `tests` with Prettier directly and let CI's full format step confirm the rest.
 Rejected: touching `tests/` in either commit, and updating the `docs/PLAN.md` status table here. Open PR #11 rewrites that table, so the 6.3/6.4 rows go in #11 to avoid two PRs conflicting on it.
 
+## 2026-11-23 — model, spending cap and README (Khoi, tasks 3.3, 3.4)
+
+Tool: Claude Code (Claude Opus 5.5), with Claude in Chrome to read the Anthropic Console and set its spend limit.
+Asked for: set a spend limit on the model API key (3.3, taken over from Bao) and write the README section on the model and the cap (3.4).
+Kept: Claude Sonnet 5.5 as the model, and a $5 cap. The brief (section 5) leaves the provider to the team; we compared a Gemini free tier and kept Claude.
+Changed: before any credit was bought, the Console showed no spend-limit setting (checked Workspaces, Rate limits, Billing and Usage; only token rate limits), so the first README draft named the prepaid balance as the cap. After Khoi bought $5 of credit (auto-reload off), a "Spend limits" page appeared with an organization monthly limit of $500 by default. With Khoi's go-ahead, the assistant set it to $5 in the Console and read it back ("Spend limit saved"; the Default workspace inherits it). The README now names both guards. Khoi entered the payment details and confirmed the purchase; the assistant did not handle the payment or the key.
+Rejected: the assistant's first README line, "the model client is mocked". There is no model client in PA#2, so the line described code that does not exist; it now says tests will mock the client once it exists.
+
 ## 2026-11-23 — self-assessment after Khoi's review of PR #11 (Bao)
 
 Tool: Claude Code (Claude Opus 5.5).

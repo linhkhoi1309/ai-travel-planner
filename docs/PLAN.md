@@ -23,7 +23,7 @@ Last updated: 2026-11-23 by Bao.
 | 3.1 `.env.example`                   | B     | Done                                                                 | PR #6                                             |
 | 3.2 3-tier permissions               | B     | Done                                                                 | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
 | 3.3 API key spending cap             | K     | Done: $5 monthly limit, $5 prepaid, no auto-reload                   | screenshot kept privately                         |
-| 3.4 README model + cap section       | K     | PR open                                                              | PR #14                                            |
+| 3.4 README model + cap section       | K     | Done                                                                 | PR #14 (merged)                                   |
 | 3.5 gitleaks secret scan             | K     | Done                                                                 | PR #10, step in the `checks` job                  |
 | 4.1 Contract                         | B     | Done                                                                 | PR #7                                             |
 | 6.1 Endpoint code                    | B     | Done                                                                 | PR #8                                             |
