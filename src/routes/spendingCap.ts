@@ -111,12 +111,6 @@ export function spendingCapRouter(store: Store, now: () => Date): Router {
       return;
     }
 
-    // 4. ownership: a member may change only their own cap
-    if (member.userId !== callerId) {
-      sendProblem(res, 'not-your-cap', 'You can only change your own spending cap.');
-      return;
-    }
-
     // 5. media type
     if (!isJsonMediaType(req.get('content-type'))) {
       sendProblem(res, 'unsupported-media-type', 'Send Content-Type: application/json.');
