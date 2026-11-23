@@ -292,6 +292,7 @@ Content-Type: application/problem+json
 | 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9).  |
 | 2026-11-23 | 1       | Section 1: a path id in any other form (`01`, `+1`, `1.0`) is `404 group-not-found` or `404 member-not-found`, never `400` (review of PR #7, item 2). |
 | 2026-11-23 | 1       | Appendix A: token edge cases. Scheme case-insensitive, one or more spaces, token written like a path id (review of PR #7, item 3).                    |
+| 2026-11-23 | 1       | Appendix A: add the sequence 500000 → 800000 → 4000000, showing that a raised cap lists only the plans it does not fit (review of PR #7, item 4).     |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
@@ -349,6 +350,20 @@ What the seed gives, for user 1 in group 1 (each row from a fresh seed):
 | 800000        | plan 1                              |
 | 500000        | plan 1, plan 2                      |
 | 4001000       | none: `422 cap-exceeds-group-total` |
+
+A sequence, for user 1 in group 1, from a fresh seed (each step follows the one
+before):
+
+| Step | `capVnd` sent | `affectedPlans` | Plan 1 status        | Plan 2 status        |
+| ---- | ------------- | --------------- | -------------------- | -------------------- |
+| 1    | 500000        | plan 1, plan 2  | `needs-revalidation` | `needs-revalidation` |
+| 2    | 800000        | plan 1          | `needs-revalidation` | `needs-revalidation` |
+| 3    | 4000000       | `[]`            | `needs-revalidation` | `needs-revalidation` |
+
+At step 2, plan 2 (cost 600000) fits the new cap, so it is not listed, but it
+stays `needs-revalidation`: raising a cap never sets a plan back to `saved`
+(section 4.1). `affectedPlans` lists the plans the cap does not fit, not every
+flagged plan.
 
 And: user 5 on group 1 gets `404 group-not-found`, the same as anyone on
 group 99; user 1 on group 1 for user 6 gets `404 member-not-found`; user 1 on
