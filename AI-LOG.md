@@ -127,3 +127,11 @@ Asked for: Khoi's five review points on PR #11: evidence links instead of task n
 Kept: Khoi's suggested claims (total 91 → 95) and his evidence, after checking each one: run 45115877930 scanned 40 commits with no leaks, `git log --first-parent main` has only PR merges since protection, and a PUT with `Content-Encoding: br-unknown` against `npm run dev` returned `500 internal` (a plain PUT returned 200).
 Changed: `main`'s status table was older than the review assumed (no 3.5 or 6.2–6.5 rows, 3.3 still Todo), so "take main's rows" was not enough. The merge builds one table from `main`, PR #14's 3.3/3.4 rows and the merged PRs.
 Rejected: trimming `CLAUDE.md` to the four sections in this PR. Editing it needs Bao's go-ahead, and the Permissions section is criterion 2's evidence; the gap is named under "What we did not manage" and row 1 stays 14.
+
+## 2026-11-23 — final fresh clone and self-assessment cleanup (Khoi)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: re-run the fresh-clone test on the final `main`, then remove the "Before we submit" checklist from `SELF_ASSESSMENT_REPORT.md`.
+Kept: the run. The public repo cloned at bb5861e into a new folder, Node 22.17.1: `npm ci`, `cp .env.example .env`, then lint, format check, type check and tests, each run bare: all exit 0, 107 tests passed. The server answered `/health` with 200, and a PUT of user 1's cap returned 200 with plan 1 flagged.
+Changed: the server was started with `tsx src/server.ts`, the command behind `npm run dev` without watch mode, so it could be stopped cleanly after the check.
+Rejected: nothing.
