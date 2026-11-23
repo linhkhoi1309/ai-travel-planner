@@ -86,9 +86,11 @@ Content-Type: application/problem+json
 | `invalid-json`            | 400    | Malformed JSON          | the body is not valid JSON (an empty body counts as not valid JSON)                                  |
 | `validation`              | 400    | Invalid request         | the body is valid JSON but breaks a field rule in section 4                                          |
 | `cap-exceeds-group-total` | 422    | Cap exceeds group total | `capVnd` is valid but larger than the group's `totalVnd`                                             |
+| `method-not-allowed`      | 405    | Method not allowed      | the method is not `PUT` (see section 4.1, before step 1)                                             |
 | `internal`                | 500    | Internal error          | anything else. `detail` is the fixed sentence `"Something went wrong on our side."`                  |
 
 - A `401` also carries the header `WWW-Authenticate: Bearer`.
+- A `405` also carries the header `Allow: PUT`.
 - Clients decide what to do from `type`, never from `title` or `detail`.
 
 ## 3. Resources
@@ -151,7 +153,14 @@ Request body:
 - `0` is a valid cap: the member plans to spend nothing.
 - Other fields are ignored.
 
-The server checks, **in this order**, and stops at the first step that fails:
+**Other methods.** `GET`, `POST`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS` or any
+other method on this path gets `405 method-not-allowed` with `Allow: PUT`,
+before any of the steps below: for any `groupId` and `userId`, with or without a
+token, so it reveals nothing about groups or members. (A `HEAD` response has the
+same status and headers, but no body.)
+
+For `PUT`, the server checks, **in this order**, and stops at the first step
+that fails:
 
 1. The caller is authenticated, else `401 unauthenticated`.
 2. `groupId` is a positive integer, the group exists and the caller is a member
@@ -284,15 +293,16 @@ Content-Type: application/problem+json
 
 ### Changelog
 
-| Date       | Version | Change                                                                                                                                                |
-| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-18 | 1       | First version.                                                                                                                                        |
-| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                                  |
-| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).            |
-| 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9).  |
-| 2026-11-23 | 1       | Section 1: a path id in any other form (`01`, `+1`, `1.0`) is `404 group-not-found` or `404 member-not-found`, never `400` (review of PR #7, item 2). |
-| 2026-11-23 | 1       | Appendix A: token edge cases. Scheme case-insensitive, one or more spaces, token written like a path id (review of PR #7, item 3).                    |
-| 2026-11-23 | 1       | Appendix A: add the sequence 500000 → 800000 → 4000000, showing that a raised cap lists only the plans it does not fit (review of PR #7, item 4).     |
+| Date       | Version | Change                                                                                                                                                     |
+| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-18 | 1       | First version.                                                                                                                                             |
+| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                                       |
+| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).                 |
+| 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9).       |
+| 2026-11-23 | 1       | Section 1: a path id in any other form (`01`, `+1`, `1.0`) is `404 group-not-found` or `404 member-not-found`, never `400` (review of PR #7, item 2).      |
+| 2026-11-23 | 1       | Appendix A: token edge cases. Scheme case-insensitive, one or more spaces, token written like a path id (review of PR #7, item 3).                         |
+| 2026-11-23 | 1       | Appendix A: add the sequence 500000 → 800000 → 4000000, showing that a raised cap lists only the plans it does not fit (review of PR #7, item 4).          |
+| 2026-11-23 | 1       | Section 2 and 4.1: new problem `405 method-not-allowed` with `Allow: PUT`, for any method other than PUT, before the auth check (review of PR #7, item 5). |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
