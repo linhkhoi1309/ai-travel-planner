@@ -112,6 +112,14 @@ Kept: Claude Sonnet 5.5 as the model, and a $5 cap. The brief (section 5) leaves
 Changed: before any credit was bought, the Console showed no spend-limit setting (checked Workspaces, Rate limits, Billing and Usage; only token rate limits), so the first README draft named the prepaid balance as the cap. After Khoi bought $5 of credit (auto-reload off), a "Spend limits" page appeared with an organization monthly limit of $500 by default. With Khoi's go-ahead, the assistant set it to $5 in the Console and read it back ("Spend limit saved"; the Default workspace inherits it). The README now names both guards. Khoi entered the payment details and confirmed the purchase; the assistant did not handle the payment or the key.
 Rejected: the assistant's first README line, "the model client is mocked". There is no model client in PA#2, so the line described code that does not exist; it now says tests will mock the client once it exists.
 
+## 2026-11-23 — PA2.md (Khoi, task 9.1)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: `PA2.md` with the six links the rubric names.
+Kept: one table, one row per rubric link, each pointing at a PR, a commit or a CI run read back with `gh run view`.
+Changed: the blocked PR is #13, not #1. PR #1 was closed and never turned green, so it cannot be "the PR that turned green"; #13 has both the red runs and the commit that greened it. PR #1 stays as earlier proof that CI can fail.
+Rejected: a guessed tag-run link. The `pa2` tag does not exist yet; the row says so and is filled in at task 9.4.
+
 ## 2026-11-23 — self-assessment after Khoi's review of PR #11 (Bao)
 
 Tool: Claude Code (Claude Opus 5.5).
