@@ -17,7 +17,10 @@ says why, and add a line to the changelog (section 5). Never change it quietly.
   `costPerMemberVnd`. Never a decimal, never a string, never thousands.
 - Ids (`groupId`, `userId`, `planId`) are positive integers. In a path they are
   written in decimal digits with no sign and no leading zero (`7`, not `07`,
-  `+7` or `7.0`).
+  `+7` or `7.0`). The server accepts only that form. Any other spelling (`07`,
+  `+7`, `-7`, `7.0`, `7e0`, `0`, `abc`) names no group or member: in `groupId`
+  it is `404 group-not-found`, in `userId` it is `404 member-not-found`, with the
+  check order of section 4.1. It is never a `400`.
 - Timestamps are ISO 8601 strings in UTC with milliseconds, e.g.
   `2026-11-21T08:30:00.000Z`.
 - Clients ignore response fields they do not know. The server ignores request
@@ -281,12 +284,13 @@ Content-Type: application/problem+json
 
 ### Changelog
 
-| Date       | Version | Change                                                                                                                                               |
-| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-18 | 1       | First version.                                                                                                                                       |
-| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                                 |
-| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).           |
-| 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9). |
+| Date       | Version | Change                                                                                                                                                |
+| ---------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-18 | 1       | First version.                                                                                                                                        |
+| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                                  |
+| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).            |
+| 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9).  |
+| 2026-11-23 | 1       | Section 1: a path id in any other form (`01`, `+1`, `1.0`) is `404 group-not-found` or `404 member-not-found`, never `400` (review of PR #7, item 2). |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
