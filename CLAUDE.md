@@ -30,6 +30,7 @@ CI runs exactly the four checks, in this order, as separate steps. README, CI an
 - Record every assistant-assisted task in `AI-LOG.md` (Tool / Asked for / Kept / Changed / Rejected), as it happens.
 - Check a command's exit code by running it bare. `cmd | tail; echo $?` reports `tail`'s exit code, which is how a broken check once looked green (AI-LOG 2026-11-18, scaffold).
 - Line endings are LF (`.gitattributes`). CRLF made `prettier --check` disagree between Windows and Linux CI (AI-LOG 2026-11-18, scaffold).
+- No body parser (`express.json()`, `express.text()`) in front of the spending-cap route: it answers before the auth and ownership checks, or turns a bad body into a 500. The route reads raw bytes and checks them in contract order (AI-LOG 2026-11-18 and 2026-11-23, spending-cap).
 - We work on Windows, in a path with spaces. In Node, use `fileURLToPath(import.meta.url)`, never `new URL(...).pathname`.
 - End every answer with a numbered list of the user's next steps.
 
