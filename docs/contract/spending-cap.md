@@ -190,9 +190,10 @@ saved plan of this group (whatever its status):
 **Idempotency.** PUT replaces the cap, so the same request sent twice has the same
 effect as sending it once. A client that gets no answer may safely send it again.
 
-- If `capVnd` equals the stored cap, nothing changes: `updatedAt` keeps its old
-  value, no plan changes status, and the response body is **identical** to the
-  previous successful response for that value.
+- If `capVnd` equals the stored cap, the cap does not change: `updatedAt` keeps
+  its old value, so the response is identical to the response of the PUT that
+  stored this cap. (After `800000` → `900000` → `800000`, the cap changed back,
+  so `updatedAt` is the time of the third PUT, not the first.)
 - `affectedPlans` is computed from the stored state, not from what this request
   changed, so a repeat lists the same plans again.
 - No `Idempotency-Key` header is needed or read.
@@ -275,10 +276,11 @@ Content-Type: application/problem+json
 
 ### Changelog
 
-| Date       | Version | Change                                                                                                               |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-18 | 1       | First version.                                                                                                       |
-| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change. |
+| Date       | Version | Change                                                                                                                                     |
+| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-11-18 | 1       | First version.                                                                                                                             |
+| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                       |
+| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1). |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
