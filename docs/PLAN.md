@@ -6,26 +6,29 @@ This assignment isn't about features. It checks four things: rules for your AI a
 
 ## Team status (update this table in every PR that finishes a task)
 
-Last updated: 2026-11-18 by Bao.
+Last updated: 2026-11-23 by Bao.
 
-| Task                                 | Owner | Status                                             | Evidence                                          |
-| ------------------------------------ | ----- | -------------------------------------------------- | ------------------------------------------------- |
-| 1.1 Public repo                      | K     | Done; Bao (`gbao23127157`) added with Write access | https://github.com/linhkhoi1309/ai-travel-planner |
-| 1.2 `.gitignore` first               | K     | Done                                               | commit 93fccb2                                    |
-| 1.3 Scaffold + 4 checks              | K     | Done                                               | commit 8b72b0c                                    |
-| 1.4 AI-LOG.md                        | K     | Done                                               | `AI-LOG.md`                                       |
-| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                               | sent privately                                    |
-| 2.1 CI workflow                      | K     | Done                                               | `.github/workflows/ci.yml`, run 44291324404       |
-| 2.2 CI can fail                      | K     | Done                                               | PR #1 (red Lint, merge BLOCKED, closed)           |
-| 2.3 Branch protection                | K     | Done; screenshot still to add                      | `docs/branch-protection.png` (todo)               |
-| 2.4 PR-only from now                 | K     | Done                                               | direct push rejected                              |
-| 2.5 CLAUDE.md draft                  | B     | PR open, waiting for review                        | PR #5                                             |
-| 3.1 `.env.example`                   | B     | PR open, waiting for review                        | PR #6                                             |
-| 3.2 3-tier permissions               | B     | PR open, waiting for review                        | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
-| 3.3 API key spending cap             | B     | **Todo** (Anthropic Console)                       | screenshot kept privately                         |
-| 4.1 Contract                         | B     | PR open; Khoi to review as a stranger (4.2)        | PR #7                                             |
-| 6.1 Endpoint code                    | B     | Draft PR, waits for #7                             | PR #8                                             |
-| Day 2 AI-LOG entry                   | K     | Waiting for Bao's review                           | PR #2                                             |
+| Task                                 | Owner | Status                                                                 | Evidence                                          |
+| ------------------------------------ | ----- | ---------------------------------------------------------------------- | ------------------------------------------------- |
+| 1.1 Public repo                      | K     | Done; Bao (`gbao23127157`) added with Write access                     | https://github.com/linhkhoi1309/ai-travel-planner |
+| 1.2 `.gitignore` first               | K     | Done                                                                   | commit 93fccb2                                    |
+| 1.3 Scaffold + 4 checks              | K     | Done                                                                   | commit 8b72b0c                                    |
+| 1.4 AI-LOG.md                        | K     | Done                                                                   | `AI-LOG.md`                                       |
+| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                                                   | sent privately                                    |
+| 2.1 CI workflow                      | K     | Done                                                                   | `.github/workflows/ci.yml`, run 44291324404       |
+| 2.2 CI can fail                      | K     | Done                                                                   | PR #1 (red Lint, merge BLOCKED, closed)           |
+| 2.3 Branch protection                | K     | Done; screenshot still to add                                          | `docs/branch-protection.png` (todo)               |
+| 2.4 PR-only from now                 | K     | Done                                                                   | direct push rejected                              |
+| 2.5 CLAUDE.md draft                  | B     | Done                                                                   | PR #5                                             |
+| 3.1 `.env.example`                   | B     | Done                                                                   | PR #6                                             |
+| 3.2 3-tier permissions               | B     | Done                                                                   | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
+| 3.3 API key spending cap             | B     | **Todo** (Anthropic Console)                                           | screenshot kept privately                         |
+| 4.1 Contract                         | B     | Khoi's 10 review items answered, one commit each; waiting for approval | PR #7                                             |
+| 6.1 Endpoint code                    | B     | Updated to the revised contract, CI green; draft until #7 merges       | PR #8                                             |
+| Day 2 AI-LOG entry                   | K     | Done                                                                   | PR #2                                             |
+| 8.1 Fresh-clone test                 | B     | Done: `main` at cd84c6c, 4 checks exit 0                               | AI-LOG 2026-11-23                                 |
+| 8.2 CLAUDE.md story lines            | K + B | Bao's line added (body parser); waiting for review                     | this PR                                           |
+| 9.2 Self-assessment                  | B     | Draft, Khoi to review                                                  | `SELF_ASSESSMENT_REPORT.md`, this PR              |
 
 ## How we stay in sync
 
