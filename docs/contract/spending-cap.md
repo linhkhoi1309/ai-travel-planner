@@ -76,18 +76,18 @@ Content-Type: application/problem+json
 | `errors`        | only on `validation`: one entry **per broken field** (not just the first), each `{ "pointer", "detail" }`, where `pointer` is a JSON Pointer into the body (`/capVnd`) or `""` for the whole body |
 | `groupTotalVnd` | only on `cap-exceeds-group-total`: the group total, an integer number of VND                                                                                                                      |
 
-| Slug                      | Status | Title                   | When                                                                                                 |
-| ------------------------- | ------ | ----------------------- | ---------------------------------------------------------------------------------------------------- |
-| `unauthenticated`         | 401    | Authentication required | no `Authorization` header, a header that is not `Bearer <token>`, or a token that identifies no user |
-| `group-not-found`         | 404    | Group not found         | `groupId` is not a positive integer, no group has that id, or the caller is not a member of it       |
-| `member-not-found`        | 404    | Member not found        | `userId` is not a positive integer, or no member of the group has that id                            |
-| `not-your-cap`            | 403    | Not your spending cap   | `userId` is another member of the group, not the caller                                              |
-| `unsupported-media-type`  | 415    | Unsupported media type  | the `Content-Type` header is missing or its media type is not `application/json`                     |
-| `invalid-json`            | 400    | Malformed JSON          | the body is not valid JSON (an empty body counts as not valid JSON)                                  |
-| `validation`              | 400    | Invalid request         | the body is valid JSON but breaks a field rule in section 4                                          |
-| `cap-exceeds-group-total` | 422    | Cap exceeds group total | `capVnd` is valid but larger than the group's `totalVnd`                                             |
-| `method-not-allowed`      | 405    | Method not allowed      | the method is not `PUT` (see section 4.1, before step 1)                                             |
-| `internal`                | 500    | Internal error          | anything else. `detail` is the fixed sentence `"Something went wrong on our side."`                  |
+| Slug                      | Status | Title                   | When                                                                                                                          |
+| ------------------------- | ------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `unauthenticated`         | 401    | Authentication required | no `Authorization` header, a header that is not `Bearer <token>`, or a token that identifies no user                          |
+| `group-not-found`         | 404    | Group not found         | `groupId` is not a positive integer, no group has that id, or the caller is not a member of it                                |
+| `member-not-found`        | 404    | Member not found        | `userId` is not a positive integer, or no member of the group has that id                                                     |
+| `not-your-cap`            | 403    | Not your spending cap   | `userId` is another member of the group, not the caller                                                                       |
+| `unsupported-media-type`  | 415    | Unsupported media type  | the `Content-Type` header is missing, its media type is not `application/json`, or its `charset` is not `utf-8` (section 4.1) |
+| `invalid-json`            | 400    | Malformed JSON          | the body is not valid JSON (an empty body counts as not valid JSON)                                                           |
+| `validation`              | 400    | Invalid request         | the body is valid JSON but breaks a field rule in section 4                                                                   |
+| `cap-exceeds-group-total` | 422    | Cap exceeds group total | `capVnd` is valid but larger than the group's `totalVnd`                                                                      |
+| `method-not-allowed`      | 405    | Method not allowed      | the method is not `PUT` (see section 4.1, before step 1)                                                                      |
+| `internal`                | 500    | Internal error          | anything else. `detail` is the fixed sentence `"Something went wrong on our side."`                                           |
 
 - A `401` also carries the header `WWW-Authenticate: Bearer`.
 - A `405` also carries the header `Allow: PUT`.
@@ -133,7 +133,18 @@ It records `costPerMemberVnd`, the planned spending of each member, and a
 ### 4.1 `PUT /v1/groups/{groupId}/members/{userId}/spending-cap`: set my cap
 
 Request headers: `Authorization: Bearer <token>` and
-`Content-Type: application/json` (a `charset` parameter is allowed).
+`Content-Type: application/json`.
+
+How `Content-Type` is matched (RFC 9110 section 8.3.1):
+
+- The media type is compared **case-insensitively**: `Application/JSON` is
+  accepted.
+- A `charset` parameter is allowed if its value is `utf-8` (any case, quoted or
+  not). Any other charset (`latin1`, `utf-16`) is `415`: JSON is UTF-8 (RFC
+  8259 section 8.1).
+- Other parameters are ignored.
+- `application/problem+json`, `text/json`, `application/x-www-form-urlencoded`,
+  a missing header or an empty one is `415`.
 
 Request body:
 
@@ -168,7 +179,8 @@ that fails:
 3. `userId` is a positive integer and a member of the group, else
    `404 member-not-found`.
 4. `userId` is the caller, else `403 not-your-cap`.
-5. The `Content-Type` is `application/json`, else `415 unsupported-media-type`.
+5. The `Content-Type` is `application/json` as matched above, else
+   `415 unsupported-media-type`.
 6. The body is valid JSON, else `400 invalid-json`.
 7. The body follows the table above, else `400 validation`.
 8. `capVnd` ≤ the group's `totalVnd`, else `422 cap-exceeds-group-total`.
@@ -303,6 +315,7 @@ Content-Type: application/problem+json
 | 2026-11-23 | 1       | Appendix A: token edge cases. Scheme case-insensitive, one or more spaces, token written like a path id (review of PR #7, item 3).                         |
 | 2026-11-23 | 1       | Appendix A: add the sequence 500000 → 800000 → 4000000, showing that a raised cap lists only the plans it does not fit (review of PR #7, item 4).          |
 | 2026-11-23 | 1       | Section 2 and 4.1: new problem `405 method-not-allowed` with `Allow: PUT`, for any method other than PUT, before the auth check (review of PR #7, item 5). |
+| 2026-11-23 | 1       | 4.1: `Content-Type` media type compared case-insensitively; a `charset` other than `utf-8` is `415` (review of PR #7, item 6).                             |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
