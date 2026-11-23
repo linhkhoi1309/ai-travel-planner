@@ -83,6 +83,7 @@ Content-Type: application/problem+json
 | `member-not-found`        | 404    | Member not found        | `userId` is not a positive integer, or no member of the group has that id                                                     |
 | `not-your-cap`            | 403    | Not your spending cap   | `userId` is another member of the group, not the caller                                                                       |
 | `unsupported-media-type`  | 415    | Unsupported media type  | the `Content-Type` header is missing, its media type is not `application/json`, or its `charset` is not `utf-8` (section 4.1) |
+| `payload-too-large`       | 413    | Payload too large       | the body is larger than 10240 bytes                                                                                           |
 | `invalid-json`            | 400    | Malformed JSON          | the body is not valid JSON (an empty body counts as not valid JSON)                                                           |
 | `validation`              | 400    | Invalid request         | the body is valid JSON but breaks a field rule in section 4                                                                   |
 | `cap-exceeds-group-total` | 422    | Cap exceeds group total | `capVnd` is valid but larger than the group's `totalVnd`                                                                      |
@@ -181,12 +182,14 @@ that fails:
 4. `userId` is the caller, else `403 not-your-cap`.
 5. The `Content-Type` is `application/json` as matched above, else
    `415 unsupported-media-type`.
-6. The body is valid JSON, else `400 invalid-json`.
-7. The body follows the table above, else `400 validation`.
-8. `capVnd` ≤ the group's `totalVnd`, else `422 cap-exceeds-group-total`.
+6. The body is at most **10240 bytes** (10 KiB), else `413 payload-too-large`.
+   A body of exactly 10240 bytes is allowed.
+7. The body is valid JSON, else `400 invalid-json`.
+8. The body follows the table above, else `400 validation`.
+9. `capVnd` ≤ the group's `totalVnd`, else `422 cap-exceeds-group-total`.
    A cap **equal** to the total is allowed.
-9. The cap is stored and the saved plans are checked (below): **`200`**, with a
-   SpendingCap as the body and `Content-Type: application/json`.
+10. The cap is stored and the saved plans are checked (below): **`200`**, with a
+    SpendingCap as the body and `Content-Type: application/json`.
 
 So a request with a broken body for another member's cap gets `403`, not `400`:
 who may call comes before what they send.
@@ -316,6 +319,7 @@ Content-Type: application/problem+json
 | 2026-11-23 | 1       | Appendix A: add the sequence 500000 → 800000 → 4000000, showing that a raised cap lists only the plans it does not fit (review of PR #7, item 4).          |
 | 2026-11-23 | 1       | Section 2 and 4.1: new problem `405 method-not-allowed` with `Allow: PUT`, for any method other than PUT, before the auth check (review of PR #7, item 5). |
 | 2026-11-23 | 1       | 4.1: `Content-Type` media type compared case-insensitively; a `charset` other than `utf-8` is `415` (review of PR #7, item 6).                             |
+| 2026-11-23 | 1       | 4.1 and section 2: new step 6, a body over 10240 bytes is `413 payload-too-large`; later steps renumbered 7–10 (review of PR #7, item 10).                 |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
