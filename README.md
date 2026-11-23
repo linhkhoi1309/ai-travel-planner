@@ -36,12 +36,12 @@ npm run dev   # http://localhost:3000/health
 
 ## Model and spending cap
 
-|                           |                                                                                                                              |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Provider and model        | Anthropic, Claude Sonnet 5.5 (`MODEL_NAME=claude-sonnet-5-5`)                                                                |
-| Spending cap              | **$5 in total.** The account is prepaid with $5 of credit and auto-reload is off, so the key cannot spend more than $5       |
-| Where the key lives       | `ANTHROPIC_API_KEY` in the backend's local `.env` only. Never in the browser bundle, the repository, a log or CI             |
-| Cost of one plan          | Not measured yet: PA#2 makes no model calls. We measure it when the agent runs in PA#3 and record it here and in `AI-LOG.md` |
-| What is sent to the model | Only places and interests, never names or email addresses (brief, section 3)                                                 |
+|                           |                                                                                                                                                                                                                                                             |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Provider and model        | Anthropic, Claude Sonnet 5.5 (`MODEL_NAME=claude-sonnet-5-5`)                                                                                                                                                                                               |
+| Spending cap              | **$5 per month**, as the organization's monthly spend limit in the Anthropic Console (it also applies to the workspace that holds the key). The account is prepaid with $5 of credit and auto-reload is off, so API requests stop when the balance runs out |
+| Where the key lives       | `ANTHROPIC_API_KEY` in the backend's local `.env` only. Never in the browser bundle, the repository, a log or CI                                                                                                                                            |
+| Cost of one plan          | Not measured yet: PA#2 makes no model calls. We measure it when the agent runs in PA#3 and record it here and in `AI-LOG.md`                                                                                                                                |
+| What is sent to the model | Only places and interests, never names or email addresses (brief, section 3)                                                                                                                                                                                |
 
 There is no model client in PA#2. When one is added, unit and contract tests mock it and never call a real model (`CLAUDE.md`, Never).

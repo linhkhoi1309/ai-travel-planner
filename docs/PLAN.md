@@ -22,7 +22,7 @@ Last updated: 2026-11-18 by Khoi.
 | 2.5 CLAUDE.md draft                  | B     | Done                                               | PR #5                                             |
 | 3.1 `.env.example`                   | B     | Done                                               | PR #6                                             |
 | 3.2 3-tier permissions               | B     | Done                                               | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
-| 3.3 API key spending cap             | K     | $5 prepaid credit, auto-reload off                 | screenshot kept privately                         |
+| 3.3 API key spending cap             | K     | Done: $5 monthly limit, $5 prepaid, no auto-reload | screenshot kept privately                         |
 | 3.4 README model + cap section       | K     | PR open                                            | README "Model and spending cap"                   |
 | 4.1 Contract                         | B     | PR open; changes requested in Khoi's review (4.2)  | PR #7                                             |
 | 6.1 Endpoint code                    | B     | Draft PR, waits for #7                             | PR #8                                             |

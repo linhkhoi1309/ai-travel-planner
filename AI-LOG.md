@@ -70,8 +70,8 @@ Rejected: tests for plan statuses that are not listed in `affectedPlans` (e.g. A
 
 ## 2026-11-23 — model, spending cap and README (Khoi, tasks 3.3, 3.4)
 
-Tool: Claude Code (Claude Opus 5.5), with Claude in Chrome to read the Anthropic Console.
+Tool: Claude Code (Claude Opus 5.5), with Claude in Chrome to read the Anthropic Console and set its spend limit.
 Asked for: set a spend limit on the model API key (3.3, taken over from Bao) and write the README section on the model and the cap (3.4).
 Kept: Claude Sonnet 5.5 as the model, and a $5 cap. The brief (section 5) leaves the provider to the team; we compared a Gemini free tier and kept Claude.
-Changed: the plan said "set a monthly spend limit", but the Console of this individual, evaluation-tier organization has no spend-limit setting (checked Workspaces, Rate limits, Billing and Usage; only token rate limits). The cap is the prepaid balance instead: $5 of credit with auto-reload off. `.env.example` had said "monthly spend limit"; it now says what the cap really is. Khoi buys the credit in the Console; the assistant does not handle the payment or the key.
+Changed: before any credit was bought, the Console showed no spend-limit setting (checked Workspaces, Rate limits, Billing and Usage; only token rate limits), so the first README draft named the prepaid balance as the cap. After Khoi bought $5 of credit (auto-reload off), a "Spend limits" page appeared with an organization monthly limit of $500 by default. With Khoi's go-ahead, the assistant set it to $5 in the Console and read it back ("Spend limit saved"; the Default workspace inherits it). The README now names both guards. Khoi entered the payment details and confirmed the purchase; the assistant did not handle the payment or the key.
 Rejected: the assistant's first README line, "the model client is mocked". There is no model client in PA#2, so the line described code that does not exist; it now says tests will mock the client once it exists.
