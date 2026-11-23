@@ -196,6 +196,11 @@ effect as sending it once. A client that gets no answer may safely send it again
   so `updatedAt` is the time of the third PUT, not the first.)
 - `affectedPlans` is computed from the stored state, not from what this request
   changed, so a repeat lists the same plans again.
+- The plan check above runs on **every** successful PUT, a repeat included. If a
+  plan changed since the last PUT (in a later version, for example, it was saved
+  again through the validator), the plan rule wins: a plan whose cost is above
+  the cap is flagged again and listed, even though the cap did not change. Only
+  the cap and `updatedAt` are guaranteed not to change on a repeat.
 - No `Idempotency-Key` header is needed or read.
 - Two different PUTs for the same cap at the same time: the last one the server
   stores wins. There is no `If-Match` in version 1.
@@ -276,11 +281,12 @@ Content-Type: application/problem+json
 
 ### Changelog
 
-| Date       | Version | Change                                                                                                                                     |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2026-11-18 | 1       | First version.                                                                                                                             |
-| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                       |
-| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1). |
+| Date       | Version | Change                                                                                                                                               |
+| ---------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-18 | 1       | First version.                                                                                                                                       |
+| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                                 |
+| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).           |
+| 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9). |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
