@@ -90,7 +90,10 @@ Content-Type: application/problem+json
 | `method-not-allowed`      | 405    | Method not allowed      | the method is not `PUT` (see section 4.1, before step 1)                                                                      |
 | `internal`                | 500    | Internal error          | anything else. `detail` is the fixed sentence `"Something went wrong on our side."`                                           |
 
-- A `401` also carries the header `WWW-Authenticate: Bearer`.
+- A `401` also carries the header `WWW-Authenticate: Bearer`, exactly that
+  value in v1, with no `realm` or `error` parameters. Clients read only the
+  scheme (RFC 9110 section 11.6.1), so adding RFC 6750 parameters later is an
+  additive change.
 - A `405` also carries the header `Allow: PUT`.
 - Clients decide what to do from `type`, never from `title` or `detail`.
 
@@ -102,6 +105,7 @@ What is fixed and what is free text (so tests know what they may assert):
 | `errors[].pointer`, and the number of entries in `errors`     | `errors[].detail`                                |
 | `groupTotalVnd`                                               | the `detail` in the examples of section 4.1      |
 | `detail` on `internal`: `"Something went wrong on our side."` |                                                  |
+| the `WWW-Authenticate` and `Allow` header values              |                                                  |
 
 ## 3. Resources
 
@@ -317,19 +321,20 @@ Content-Type: application/problem+json
 
 ### Changelog
 
-| Date       | Version | Change                                                                                                                                                       |
-| ---------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2026-11-18 | 1       | First version.                                                                                                                                               |
-| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                                         |
-| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).                   |
-| 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9).         |
-| 2026-11-23 | 1       | Section 1: a path id in any other form (`01`, `+1`, `1.0`) is `404 group-not-found` or `404 member-not-found`, never `400` (review of PR #7, item 2).        |
-| 2026-11-23 | 1       | Appendix A: token edge cases. Scheme case-insensitive, one or more spaces, token written like a path id (review of PR #7, item 3).                           |
-| 2026-11-23 | 1       | Appendix A: add the sequence 500000 → 800000 → 4000000, showing that a raised cap lists only the plans it does not fit (review of PR #7, item 4).            |
-| 2026-11-23 | 1       | Section 2 and 4.1: new problem `405 method-not-allowed` with `Allow: PUT`, for any method other than PUT, before the auth check (review of PR #7, item 5).   |
-| 2026-11-23 | 1       | 4.1: `Content-Type` media type compared case-insensitively; a `charset` other than `utf-8` is `415` (review of PR #7, item 6).                               |
-| 2026-11-23 | 1       | 4.1 and section 2: new step 6, a body over 10240 bytes is `413 payload-too-large`; later steps renumbered 7–10 (review of PR #7, item 10).                   |
-| 2026-11-23 | 1       | Section 2: which problem fields are fixed and which are free text that tests must not compare. Clarification, no behaviour change (review of PR #7, item 7). |
+| Date       | Version | Change                                                                                                                                                          |
+| ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-18 | 1       | First version.                                                                                                                                                  |
+| 2026-11-18 | 1       | Section 2: say that a `charset` parameter may follow `application/problem+json`. Clarification, no behaviour change.                                            |
+| 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).                      |
+| 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9).            |
+| 2026-11-23 | 1       | Section 1: a path id in any other form (`01`, `+1`, `1.0`) is `404 group-not-found` or `404 member-not-found`, never `400` (review of PR #7, item 2).           |
+| 2026-11-23 | 1       | Appendix A: token edge cases. Scheme case-insensitive, one or more spaces, token written like a path id (review of PR #7, item 3).                              |
+| 2026-11-23 | 1       | Appendix A: add the sequence 500000 → 800000 → 4000000, showing that a raised cap lists only the plans it does not fit (review of PR #7, item 4).               |
+| 2026-11-23 | 1       | Section 2 and 4.1: new problem `405 method-not-allowed` with `Allow: PUT`, for any method other than PUT, before the auth check (review of PR #7, item 5).      |
+| 2026-11-23 | 1       | 4.1: `Content-Type` media type compared case-insensitively; a `charset` other than `utf-8` is `415` (review of PR #7, item 6).                                  |
+| 2026-11-23 | 1       | 4.1 and section 2: new step 6, a body over 10240 bytes is `413 payload-too-large`; later steps renumbered 7–10 (review of PR #7, item 10).                      |
+| 2026-11-23 | 1       | Section 2: which problem fields are fixed and which are free text that tests must not compare. Clarification, no behaviour change (review of PR #7, item 7).    |
+| 2026-11-23 | 1       | Section 2: `WWW-Authenticate` on a `401` is exactly `Bearer` in v1; clients read only the scheme. Clarification, no behaviour change (review of PR #7, item 8). |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
