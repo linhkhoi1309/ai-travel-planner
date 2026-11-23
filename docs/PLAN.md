@@ -6,28 +6,37 @@ This assignment isn't about features. It checks four things: rules for your AI a
 
 ## Team status (update this table in every PR that finishes a task)
 
-Last updated: 2026-11-18 by Khoi.
+Last updated: 2026-11-23 by Bao.
 
-| Task                                 | Owner | Status                                             | Evidence                                          |
-| ------------------------------------ | ----- | -------------------------------------------------- | ------------------------------------------------- |
-| 1.1 Public repo                      | K     | Done; Bao (`gbao23127157`) added with Write access | https://github.com/linhkhoi1309/ai-travel-planner |
-| 1.2 `.gitignore` first               | K     | Done                                               | commit 93fccb2                                    |
-| 1.3 Scaffold + 4 checks              | K     | Done                                               | commit 8b72b0c                                    |
-| 1.4 AI-LOG.md                        | K     | Done                                               | `AI-LOG.md`                                       |
-| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                               | sent privately                                    |
-| 2.1 CI workflow                      | K     | Done                                               | `.github/workflows/ci.yml`, run 44291324404       |
-| 2.2 CI can fail                      | K     | Done                                               | PR #1 (red Lint, merge BLOCKED, closed)           |
-| 2.3 Branch protection                | K     | Done                                               | `docs/branch-protection.png`                      |
-| 2.4 PR-only from now                 | K     | Done                                               | direct push rejected                              |
-| 2.5 CLAUDE.md draft                  | B     | Done                                               | PR #5                                             |
-| 3.1 `.env.example`                   | B     | Done                                               | PR #6                                             |
-| 3.2 3-tier permissions               | B     | Done                                               | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
-| 3.3 API key spending cap             | K     | Done: $5 monthly limit, $5 prepaid, no auto-reload | screenshot kept privately                         |
-| 3.4 README model + cap section       | K     | PR open                                            | README "Model and spending cap"                   |
-| 4.1 Contract                         | B     | PR open; changes requested in Khoi's review (4.2)  | PR #7                                             |
-| 6.1 Endpoint code                    | B     | Draft PR, waits for #7                             | PR #8                                             |
-| Day 2 AI-LOG entry                   | K     | Done                                               | PR #2                                             |
-| Bao's Day 2 AI-LOG entries           | B     | Done                                               | PR #9                                             |
+| Task                                 | Owner | Status                                                               | Evidence                                          |
+| ------------------------------------ | ----- | -------------------------------------------------------------------- | ------------------------------------------------- |
+| 1.1 Public repo                      | K     | Done; Bao (`gbao23127157`) added with Write access                   | https://github.com/linhkhoi1309/ai-travel-planner |
+| 1.2 `.gitignore` first               | K     | Done                                                                 | commit 93fccb2                                    |
+| 1.3 Scaffold + 4 checks              | K     | Done                                                                 | commit 8b72b0c                                    |
+| 1.4 AI-LOG.md                        | K     | Done                                                                 | `AI-LOG.md`                                       |
+| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                                                 | sent privately                                    |
+| 2.1 CI workflow                      | K     | Done                                                                 | `.github/workflows/ci.yml`, run 44291324404       |
+| 2.2 CI can fail                      | K     | Done                                                                 | PR #1 (red Lint, merge BLOCKED, closed)           |
+| 2.3 Branch protection                | K     | Done                                                                 | `docs/branch-protection.png` (PR #4)              |
+| 2.4 PR-only from now                 | K     | Done                                                                 | direct push rejected                              |
+| 2.5 CLAUDE.md draft                  | B     | Done                                                                 | PR #5                                             |
+| 3.1 `.env.example`                   | B     | Done                                                                 | PR #6                                             |
+| 3.2 3-tier permissions               | B     | Done                                                                 | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
+| 3.3 API key spending cap             | K     | Done: $5 monthly limit, $5 prepaid, no auto-reload                   | screenshot kept privately                         |
+| 3.4 README model + cap section       | K     | Done                                                                 | PR #14 (merged)                                   |
+| 3.5 gitleaks secret scan             | K     | Done                                                                 | PR #10, step in the `checks` job                  |
+| 4.1 Contract                         | B     | Done                                                                 | PR #7                                             |
+| 6.1 Endpoint code                    | B     | Done                                                                 | PR #8                                             |
+| 6.2 Contract tests                   | K     | Done: 106 tests                                                      | PR #12                                            |
+| 6.3 Deliberate break                 | B     | Done: 5 tests red, merge BLOCKED                                     | PR #13, runs 45114456886, 45114641521             |
+| 6.4 Fix in `src/` only               | B     | Done                                                                 | commit b0109ba, run 45115019713                   |
+| 6.5 AI-LOG for 6.3/6.4               | B     | Done                                                                 | AI-LOG 2026-11-23 (deliberate break)              |
+| Day 2 AI-LOG entry                   | K     | Done                                                                 | PR #2                                             |
+| Bao's Day 2 AI-LOG entries           | B     | Done                                                                 | PR #9                                             |
+| 8.1 Fresh-clone test                 | B     | Done: `main` at cd84c6c, 4 checks exit 0; re-run on the final commit | AI-LOG 2026-11-23                                 |
+| 8.2 CLAUDE.md story lines            | K + B | Bao's line added (body parser)                                       | PR #11                                            |
+| 9.1 `PA2.md`                         | K     | PR open                                                              | PR #15                                            |
+| 9.2 Self-assessment                  | B     | Revised after Khoi's review                                          | `SELF_ASSESSMENT_REPORT.md`, PR #11               |
 
 ## How we stay in sync
 

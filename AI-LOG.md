@@ -67,6 +67,24 @@ Kept: running the gitleaks CLI (8.30.1, pinned, SHA-256 checked) over the whole 
 Changed: checked that the step can fail before trusting it: a local scan of the repo found no leaks (exit 0, 17 commits), and a scan of a scratch folder outside the repo with a fake AWS key exited 1. The exit codes were read with `PIPESTATUS`, not through `| tail` (see the scaffold entry).
 Rejected: `gitleaks/gitleaks-action`. It only scans the commits in the event, so a tag push scans nothing, and it needs write access to comment on PRs. The plain CLI scans everything with read-only permissions.
 
+## 2026-11-23 — answering Khoi's review of the contract (Bao)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: answer the ten questions in Khoi's review of PR #7 in the contract itself, one commit and one changelog line per item, then bring the endpoint in PR #8 in line.
+Kept: the answers to items 1–7, 9 and 10 as the assistant drafted them, each citing the RFC it follows (RFC 9110 for the `Authorization` and `Content-Type` rules and for `405` with `Allow: PUT`, RFC 8259 for UTF-8 only).
+Changed: item 8 (`WWW-Authenticate`). Khoi proposed asserting only "starts with `Bearer`". We fixed the value to exactly `Bearer` in v1, so a test can compare it whole, and wrote down that clients read only the scheme, so adding RFC 6750 parameters later stays an additive change.
+Changed: while updating PR #8 the assistant found that `express.text()` in front of the route ran before step 1: it silently decoded a `latin1` body, and an unknown charset or a body over 100 kB threw into the error handler as a `500`, before the auth check. The route now reads raw bytes with a 10240-byte limit, keeps a read error until step 6, and decodes strict UTF-8 (commit a3afc07). Checked by hand: a 200 kB body for another member's cap still gets `403`, and with no token `401`.
+Changed: commits 00bcaf2, 3b99e5e (contract) and a3afc07 (endpoint) were written with the assistant but have no `Co-Authored-By` line, because Bao first asked it to leave this session out of the log. We changed our minds the same day; this entry is the record.
+Rejected: keeping the assistant's ad-hoc Supertest probe in `tests/`. It was a throwaway check, deleted after the run; the contract tests are Khoi's to write from the contract alone (task 6.2).
+
+## 2026-11-23 — fresh clone, CLAUDE.md, self-assessment draft (Bao)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: the fresh-clone test (8.1), a CLAUDE.md line from something that went wrong this week (8.2), and a first `SELF_ASSESSMENT_REPORT.md` (9.2).
+Kept: the fresh-clone run. `main` at cd84c6c, cloned into a new folder, `npm ci` and the four README commands each run bare, all exit 0; `npm run dev` answers `/health`.
+Changed: criteria 2, 4 and 6 depend on work that is not merged yet (3.3/3.4, PR #4, 6.2, 6.3/6.4). The draft gives each of those claims its condition and the lower score if the work does not land, so the total can be corrected before the zip is named.
+Rejected: fixing the README during the fresh-clone test. It is enough for the checks, but it still lacks `cp .env.example .env` and the "Model and spending cap" section; that is task 3.4 (Khoi), and the cap amount waits for 3.3.
+
 ## 2026-11-23 — spending-cap contract tests (Khoi, task 6.2)
 
 Tool: Claude Code (Claude Opus 5.5).
@@ -93,3 +111,11 @@ Asked for: set a spend limit on the model API key (3.3, taken over from Bao) and
 Kept: Claude Sonnet 5.5 as the model, and a $5 cap. The brief (section 5) leaves the provider to the team; we compared a Gemini free tier and kept Claude.
 Changed: before any credit was bought, the Console showed no spend-limit setting (checked Workspaces, Rate limits, Billing and Usage; only token rate limits), so the first README draft named the prepaid balance as the cap. After Khoi bought $5 of credit (auto-reload off), a "Spend limits" page appeared with an organization monthly limit of $500 by default. With Khoi's go-ahead, the assistant set it to $5 in the Console and read it back ("Spend limit saved"; the Default workspace inherits it). The README now names both guards. Khoi entered the payment details and confirmed the purchase; the assistant did not handle the payment or the key.
 Rejected: the assistant's first README line, "the model client is mocked". There is no model client in PA#2, so the line described code that does not exist; it now says tests will mock the client once it exists.
+
+## 2026-11-23 — self-assessment after Khoi's review of PR #11 (Bao)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: Khoi's five review points on PR #11: evidence links instead of task numbers, claims against the bands, today's real gaps, the template headings, and `main` merged in.
+Kept: Khoi's suggested claims (total 91 → 95) and his evidence, after checking each one: run 45115877930 scanned 40 commits with no leaks, `git log --first-parent main` has only PR merges since protection, and a PUT with `Content-Encoding: br-unknown` against `npm run dev` returned `500 internal` (a plain PUT returned 200).
+Changed: `main`'s status table was older than the review assumed (no 3.5 or 6.2–6.5 rows, 3.3 still Todo), so "take main's rows" was not enough. The merge builds one table from `main`, PR #14's 3.3/3.4 rows and the merged PRs.
+Rejected: trimming `CLAUDE.md` to the four sections in this PR. Editing it needs Bao's go-ahead, and the Permissions section is criterion 2's evidence; the gap is named under "What we did not manage" and row 1 stays 14.
