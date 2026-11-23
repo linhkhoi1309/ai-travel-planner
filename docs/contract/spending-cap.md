@@ -291,6 +291,7 @@ Content-Type: application/problem+json
 | 2026-11-23 | 1       | 4.1 Idempotency: a repeat matches the response of the PUT that stored the cap, not the first one for that value (review of PR #7, item 1).            |
 | 2026-11-23 | 1       | 4.1 Idempotency: the plan check runs on every PUT, a repeat included; on a repeat only the cap and `updatedAt` stay fixed (review of PR #7, item 9).  |
 | 2026-11-23 | 1       | Section 1: a path id in any other form (`01`, `+1`, `1.0`) is `404 group-not-found` or `404 member-not-found`, never `400` (review of PR #7, item 2). |
+| 2026-11-23 | 1       | Appendix A: token edge cases. Scheme case-insensitive, one or more spaces, token written like a path id (review of PR #7, item 3).                    |
 
 ## Appendix A: the PA#2 stub (not part of the API)
 
@@ -300,7 +301,22 @@ sections above will not change because of that.
 
 - **Token.** The bearer token is the user's id in decimal, e.g.
   `Authorization: Bearer 1`. A token that is not one of the user ids below is
-  `401 unauthenticated`.
+  `401 unauthenticated`. The header follows RFC 9110 (section 11): the scheme
+  `Bearer` is case-insensitive, one or more spaces separate it from the token,
+  and whitespace before or after the whole value is not part of it. The token
+  itself is written like a path id (section 1): digits, no sign, no leading zero.
+
+  | `Authorization` header             | Result                       |
+  | ---------------------------------- | ---------------------------- |
+  | `Bearer 1`, `bearer 1`, `BEARER 1` | user 1                       |
+  | `Bearer  1` (two spaces)           | user 1                       |
+  | `Bearer 1 ` (trailing space)       | user 1                       |
+  | `Bearer 01`, `Bearer +1`           | `401` (not written as an id) |
+  | `Bearer 0`, `Bearer -1`            | `401` (not a positive id)    |
+  | `Bearer 7`                         | `401` (no such user)         |
+  | `Bearer`, `Bearer 1 2`, `Basic 1`  | `401` (not `Bearer <token>`) |
+  | no header                          | `401`                        |
+
 - **Store.** In memory. `createApp()` (exported from `src/app.ts`) returns an app
   with its own store, freshly seeded, so each test can start from the seed below.
 
