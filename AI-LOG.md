@@ -59,6 +59,14 @@ Changed: the first contract said problem responses carry exactly `Content-Type: 
 Changed: with `express.json()` in front, a bad body for someone else's cap got `400 invalid-json` before the `403`. The route now reads the body as text and parses it at step 6, as the contract orders.
 Rejected: having the assistant write the contract tests too. Khoi writes them from the contract alone (task 6.2), which is the real test of whether a stranger could build a client from it.
 
+## 2026-11-18 — gitleaks secret scan in CI (Khoi, task 3.5)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: a secret-scan step in CI.
+Kept: running the gitleaks CLI (8.30.1, pinned, SHA-256 checked) over the whole history as a step in the required `checks` job, with `fetch-depth: 0` on checkout. A separate job would not block merges until it was added to branch protection.
+Changed: checked that the step can fail before trusting it: a local scan of the repo found no leaks (exit 0, 17 commits), and a scan of a scratch folder outside the repo with a fake AWS key exited 1. The exit codes were read with `PIPESTATUS`, not through `| tail` (see the scaffold entry).
+Rejected: `gitleaks/gitleaks-action`. It only scans the commits in the event, so a tag push scans nothing, and it needs write access to comment on PRs. The plain CLI scans everything with read-only permissions.
+
 ## 2026-11-23 — answering Khoi's review of the contract (Bao)
 
 Tool: Claude Code (Claude Opus 5.5).
@@ -76,3 +84,22 @@ Asked for: the fresh-clone test (8.1), a CLAUDE.md line from something that went
 Kept: the fresh-clone run. `main` at cd84c6c, cloned into a new folder, `npm ci` and the four README commands each run bare, all exit 0; `npm run dev` answers `/health`.
 Changed: criteria 2, 4 and 6 depend on work that is not merged yet (3.3/3.4, PR #4, 6.2, 6.3/6.4). The draft gives each of those claims its condition and the lower score if the work does not land, so the total can be corrected before the zip is named.
 Rejected: fixing the README during the fresh-clone test. It is enough for the checks, but it still lacks `cp .env.example .env` and the "Model and spending cap" section; that is task 3.4 (Khoi), and the cap amount waits for 3.3.
+
+## 2026-11-23 — spending-cap contract tests (Khoi, task 6.2)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: contract tests written from `docs/contract/spending-cap.md` alone, one per contract sentence, each refusal followed by a check that the state did not change (session 7, Demo 3).
+Kept: 106 tests in `tests/spendingCap.contract.test.ts`, every problem `type`/`title`/`status` from section 2, the check order of 4.1, and the Appendix A seed tables. A refusal is shown to change nothing by repeating the owner's last PUT: by the idempotency rule it must return the identical body, and a faked clock moves forward between requests, so a changed cap cannot hide inside one millisecond.
+Changed: proved the tests can fail before trusting the green run against PR #8. In a throwaway copy of the PR #8 code, ten deliberate breaks (ownership skipped, 403 instead of 404 for a non-member, cap stored before the 422 check, `updatedAt` moved on a repeat, `>=` for plan cost, 405 after auth, charset unchecked, body parsed before the 403, multiple-of-1000 dropped, `>=` for the group total) each turned at least one test red. The first try at one break was a `sed` that broke the file, so "exit 1" there proved nothing; it was redone and caught by 2 tests.
+Changed: the assistant checked lint as `npm run lint | tail; echo $?`, the exact mistake from the Day 1 entry, so `lint=0` was `tail`'s code. Re-ran every check bare: lint 0, format 0, typecheck 0.
+Rejected: tests for plan statuses that are not listed in `affectedPlans` (e.g. Appendix A: plan 2 stays `needs-revalidation`), and for the `500 internal` problem. Neither is observable over HTTP yet; the plan statuses wait for the store view requested in the PR #7 review.
+
+## 2026-11-23 — deliberate contract break and fix (Bao, tasks 6.3–6.5)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: the deliberate break on branch `break/ownership` (only `src/`, the route skips the ownership check), a PR titled "Deliberate contract break: skip ownership check", then the fix as a separate commit on the same PR without touching `tests/` (PR #13).
+Kept: the break commit ad4d740 deletes step 4 of contract 4.1, so user 1 changing user 2's cap gets 200 instead of `403 not-your-cap`. CI was red in the Tests step only (lint, format and typecheck green), with 5 of 107 tests failing, the 5 Khoi's PR #12 predicted for this break; merge was BLOCKED. Red runs 45114456886 and 45114641521. The fix commit b0109ba puts the 5 lines back; `src/` then matches `main` byte for byte, 107/107 pass, green run 45115019713.
+Changed: Khoi merged PR #4 while the first run was going, so the PR showed BEHIND. The assistant merged `main` into the branch instead of rebasing (no rewritten history), and the merge commit was red again because the break was then the only difference from `main`.
+Changed: the assistant paused after the red runs instead of pushing the fix at once, so Bao could screenshot the blocked merge first; the fix would have turned CI green within a minute and left no blocked state to capture.
+Changed: locally `npm run format:check` fails on `.claude/settings.local.json`, an ignored per-user file CI never sees. The assistant checked `src` and `tests` with Prettier directly and let CI's full format step confirm the rest.
+Rejected: touching `tests/` in either commit, and updating the `docs/PLAN.md` status table here. Open PR #11 rewrites that table, so the 6.3/6.4 rows go in #11 to avoid two PRs conflicting on it.

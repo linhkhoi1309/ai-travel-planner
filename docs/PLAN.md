@@ -8,27 +8,35 @@ This assignment isn't about features. It checks four things: rules for your AI a
 
 Last updated: 2026-11-23 by Bao.
 
-| Task                                 | Owner | Status                                                                 | Evidence                                          |
-| ------------------------------------ | ----- | ---------------------------------------------------------------------- | ------------------------------------------------- |
-| 1.1 Public repo                      | K     | Done; Bao (`gbao23127157`) added with Write access                     | https://github.com/linhkhoi1309/ai-travel-planner |
-| 1.2 `.gitignore` first               | K     | Done                                                                   | commit 93fccb2                                    |
-| 1.3 Scaffold + 4 checks              | K     | Done                                                                   | commit 8b72b0c                                    |
-| 1.4 AI-LOG.md                        | K     | Done                                                                   | `AI-LOG.md`                                       |
-| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                                                   | sent privately                                    |
-| 2.1 CI workflow                      | K     | Done                                                                   | `.github/workflows/ci.yml`, run 44291324404       |
-| 2.2 CI can fail                      | K     | Done                                                                   | PR #1 (red Lint, merge BLOCKED, closed)           |
-| 2.3 Branch protection                | K     | Done; screenshot still to add                                          | `docs/branch-protection.png` (todo)               |
-| 2.4 PR-only from now                 | K     | Done                                                                   | direct push rejected                              |
-| 2.5 CLAUDE.md draft                  | B     | Done                                                                   | PR #5                                             |
-| 3.1 `.env.example`                   | B     | Done                                                                   | PR #6                                             |
-| 3.2 3-tier permissions               | B     | Done                                                                   | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
-| 3.3 API key spending cap             | B     | **Todo** (Anthropic Console)                                           | screenshot kept privately                         |
-| 4.1 Contract                         | B     | Khoi's 10 review items answered, one commit each; waiting for approval | PR #7                                             |
-| 6.1 Endpoint code                    | B     | Updated to the revised contract, CI green; draft until #7 merges       | PR #8                                             |
-| Day 2 AI-LOG entry                   | K     | Done                                                                   | PR #2                                             |
-| 8.1 Fresh-clone test                 | B     | Done: `main` at cd84c6c, 4 checks exit 0                               | AI-LOG 2026-11-23                                 |
-| 8.2 CLAUDE.md story lines            | K + B | Bao's line added (body parser); waiting for review                     | this PR                                           |
-| 9.2 Self-assessment                  | B     | Draft, Khoi to review                                                  | `SELF_ASSESSMENT_REPORT.md`, this PR              |
+| Task                                 | Owner | Status                                                               | Evidence                                          |
+| ------------------------------------ | ----- | -------------------------------------------------------------------- | ------------------------------------------------- |
+| 1.1 Public repo                      | K     | Done; Bao (`gbao23127157`) added with Write access                   | https://github.com/linhkhoi1309/ai-travel-planner |
+| 1.2 `.gitignore` first               | K     | Done                                                                 | commit 93fccb2                                    |
+| 1.3 Scaffold + 4 checks              | K     | Done                                                                 | commit 8b72b0c                                    |
+| 1.4 AI-LOG.md                        | K     | Done                                                                 | `AI-LOG.md`                                       |
+| 1.5 IA#3 CONTRACT.md sections to Bao | K     | Done                                                                 | sent privately                                    |
+| 2.1 CI workflow                      | K     | Done                                                                 | `.github/workflows/ci.yml`, run 44291324404       |
+| 2.2 CI can fail                      | K     | Done                                                                 | PR #1 (red Lint, merge BLOCKED, closed)           |
+| 2.3 Branch protection                | K     | Done                                                                 | `docs/branch-protection.png` (PR #4)              |
+| 2.4 PR-only from now                 | K     | Done                                                                 | direct push rejected                              |
+| 2.5 CLAUDE.md draft                  | B     | Done                                                                 | PR #5                                             |
+| 3.1 `.env.example`                   | B     | Done                                                                 | PR #6                                             |
+| 3.2 3-tier permissions               | B     | Done                                                                 | PR #5 (`CLAUDE.md`, `.claude/settings.json`)      |
+| 3.3 API key spending cap             | K     | Done: $5 monthly limit, $5 prepaid, no auto-reload                   | screenshot kept privately                         |
+| 3.4 README model + cap section       | K     | PR open                                                              | PR #14                                            |
+| 3.5 gitleaks secret scan             | K     | Done                                                                 | PR #10, step in the `checks` job                  |
+| 4.1 Contract                         | B     | Done                                                                 | PR #7                                             |
+| 6.1 Endpoint code                    | B     | Done                                                                 | PR #8                                             |
+| 6.2 Contract tests                   | K     | Done: 106 tests                                                      | PR #12                                            |
+| 6.3 Deliberate break                 | B     | Done: 5 tests red, merge BLOCKED                                     | PR #13, runs 45114456886, 45114641521             |
+| 6.4 Fix in `src/` only               | B     | Done                                                                 | commit b0109ba, run 45115019713                   |
+| 6.5 AI-LOG for 6.3/6.4               | B     | Done                                                                 | AI-LOG 2026-11-23 (deliberate break)              |
+| Day 2 AI-LOG entry                   | K     | Done                                                                 | PR #2                                             |
+| Bao's Day 2 AI-LOG entries           | B     | Done                                                                 | PR #9                                             |
+| 8.1 Fresh-clone test                 | B     | Done: `main` at cd84c6c, 4 checks exit 0; re-run on the final commit | AI-LOG 2026-11-23                                 |
+| 8.2 CLAUDE.md story lines            | K + B | Bao's line added (body parser)                                       | PR #11                                            |
+| 9.1 `PA2.md`                         | K     | PR open                                                              | PR #15                                            |
+| 9.2 Self-assessment                  | B     | Revised after Khoi's review                                          | `SELF_ASSESSMENT_REPORT.md`, PR #11               |
 
 ## How we stay in sync
 
@@ -207,7 +215,7 @@ README.md  CLAUDE.md  AI-LOG.md  PA2.md  SELF_ASSESSMENT_REPORT.md
 
 | #   | Task                                                                                                                                                                                                                                                                                                                                 | Owner | Done when                                        |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----- | ------------------------------------------------ |
-| 2.1 | `.github/workflows/ci.yml`: on `pull_request`, `push` to `main` and `push` of tags. One job `checks`: checkout, setup-node 22 with npm cache, `npm ci`, then the 4 commands **as separate steps**. No `continue-on-error`, no `                                                                                                      |       | true`                                            | **K** | workflow green on main |
+| 2.1 | `.github/workflows/ci.yml`: on `pull_request`, `push` to `main` and `push` of tags. One job `checks`: checkout, setup-node 22 with npm cache, `npm ci`, then the 4 commands **as separate steps**. No `continue-on-error`, no `\|\| true`                                                                                            | **K** | workflow green on main                           |
 | 2.2 | **Prove CI can fail:** on a scratch branch, add a lint error, open a PR, see red, then close it. If Claude's first version of the workflow couldn't fail, write that in AI-LOG (Rejected)                                                                                                                                            | **K** | red run seen                                     |
 | 2.3 | **Branch protection on `main`** (Settings → Branches or Rulesets): require a PR, 1 approval, require the status check `checks`, require the branch to be up to date, **do not allow bypass** (also for admins), block force pushes and deletions                                                                                     | **K** | screenshot saved to `docs/branch-protection.png` |
 | 2.4 | From now on: **no direct pushes to main.** Tell B                                                                                                                                                                                                                                                                                    | **K** | —                                                |
@@ -262,12 +270,12 @@ Work on **two branches in parallel**, both based on the merged contract.
 
 ### Day 8 (Wed Nov 25): polish and verify
 
-| #   | Task                                                                                                                                                                          | Owner                                                          | Done when           |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------------- |
-| 8.1 | **Fresh-clone test:** clone into a new folder, follow only the README, run all 4 commands, everything green. Fix the README via PR if anything's off                          | **B**                                                          | done on B's machine |
-| 8.2 | Update `CLAUDE.md`: add **≥ 2 lines that trace back to something real** that went wrong this week, each citing the AI-LOG entry or commit. Delete generic lines               | **K** + **B**                                                  | PR merged           |
-| 8.3 | Read the AI-LOG together: each person has real Kept/Changed/Rejected entries, and the model plus estimated cost per plan is stated ("not used yet in PA#2; key capped at $X") | **K** + **B**                                                  | —                   |
-| 8.4 | History check: no secret anywhere (`git log -p                                                                                                                                | grep -i "sk-ant"` returns nothing). Also run gitleaks if added | **K**               | clean |
+| #   | Task                                                                                                                                                                          | Owner         | Done when           |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------- |
+| 8.1 | **Fresh-clone test:** clone into a new folder, follow only the README, run all 4 commands, everything green. Fix the README via PR if anything's off                          | **B**         | done on B's machine |
+| 8.2 | Update `CLAUDE.md`: add **≥ 2 lines that trace back to something real** that went wrong this week, each citing the AI-LOG entry or commit. Delete generic lines               | **K** + **B** | PR merged           |
+| 8.3 | Read the AI-LOG together: each person has real Kept/Changed/Rejected entries, and the model plus estimated cost per plan is stated ("not used yet in PA#2; key capped at $X") | **K** + **B** | —                   |
+| 8.4 | History check: no secret anywhere (`git log -p \| grep -i "sk-ant"` returns nothing). Also run gitleaks if added                                                              | **K**         | clean               |
 
 ### Day 9 (Thu Nov 26): submit (finish before 20:00, the deadline is 22:00)
 
