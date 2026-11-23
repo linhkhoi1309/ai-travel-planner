@@ -19,12 +19,13 @@ PA#2 needs no values in `.env`: the checks and the tests run without a model key
 
 These are the exact commands CI runs, in this order. Each one must pass before a PR can merge.
 
-| Check        | Command                |
-| ------------ | ---------------------- |
-| Lint         | `npm run lint`         |
-| Format check | `npm run format:check` |
-| Type check   | `npm run typecheck`    |
-| Tests        | `npm test`             |
+| Check            | Command                                   |
+| ---------------- | ----------------------------------------- |
+| Dependency audit | `npm audit --omit=dev --audit-level=high` |
+| Lint             | `npm run lint`                            |
+| Format check     | `npm run format:check`                    |
+| Type check       | `npm run typecheck`                       |
+| Tests            | `npm test`                                |
 
 `npm run format` rewrites files to fix formatting.
 

@@ -12,6 +12,7 @@ AI Travel Planner backend (CSC13114, 23KTPM1), team Khoi + Bao. PA#2 (due 2026-1
 
 ```sh
 npm ci
+npm audit --omit=dev --audit-level=high
 npm run lint          # eslint .
 npm run format:check  # prettier --check .   (npm run format to fix)
 npm run typecheck     # tsc --noEmit
@@ -19,7 +20,7 @@ npm test              # vitest run
 npm run dev           # http://localhost:3000, stop with Ctrl+C
 ```
 
-CI runs exactly the four checks, in this order, as separate steps. README, CI and this file list the same commands; change all three together.
+CI runs the audit and the four checks, in this order, as separate steps (after a gitleaks secret scan). README, CI and this file list the same commands; change all three together.
 
 ## Conventions
 

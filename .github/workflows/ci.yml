@@ -44,6 +44,11 @@ jobs:
       - name: Install
         run: npm ci
 
+      # Known vulnerabilities in what ships (session 6/7). Dev tooling is left
+      # out, so a new advisory in a test library cannot block an unrelated PR.
+      - name: Dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
       # Same commands as the README. No `|| true`, no continue-on-error:
       # each step must be able to turn the job red.
       - name: Lint
