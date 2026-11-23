@@ -103,3 +103,11 @@ Changed: Khoi merged PR #4 while the first run was going, so the PR showed BEHIN
 Changed: the assistant paused after the red runs instead of pushing the fix at once, so Bao could screenshot the blocked merge first; the fix would have turned CI green within a minute and left no blocked state to capture.
 Changed: locally `npm run format:check` fails on `.claude/settings.local.json`, an ignored per-user file CI never sees. The assistant checked `src` and `tests` with Prettier directly and let CI's full format step confirm the rest.
 Rejected: touching `tests/` in either commit, and updating the `docs/PLAN.md` status table here. Open PR #11 rewrites that table, so the 6.3/6.4 rows go in #11 to avoid two PRs conflicting on it.
+
+## 2026-11-23 — self-assessment after Khoi's review of PR #11 (Bao)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: Khoi's five review points on PR #11: evidence links instead of task numbers, claims against the bands, today's real gaps, the template headings, and `main` merged in.
+Kept: Khoi's suggested claims (total 91 → 95) and his evidence, after checking each one: run 45115877930 scanned 40 commits with no leaks, `git log --first-parent main` has only PR merges since protection, and a PUT with `Content-Encoding: br-unknown` against `npm run dev` returned `500 internal` (a plain PUT returned 200).
+Changed: `main`'s status table was older than the review assumed (no 3.5 or 6.2–6.5 rows, 3.3 still Todo), so "take main's rows" was not enough. The merge builds one table from `main`, PR #14's 3.3/3.4 rows and the merged PRs.
+Rejected: trimming `CLAUDE.md` to the four sections in this PR. Editing it needs Bao's go-ahead, and the Permissions section is criterion 2's evidence; the gap is named under "What we did not manage" and row 1 stays 14.
