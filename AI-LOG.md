@@ -143,3 +143,11 @@ Asked for: the `npm audit` step session 7 suggests, before the `pa2` tag.
 Kept: `npm audit --omit=dev --audit-level=high` as its own step after `npm ci`, and the same command in the README table, so CI and README still list the same commands. It passed locally before the PR (0 vulnerabilities, with and without dev dependencies).
 Changed: scoped it to what ships (`--omit=dev`) and to high and critical findings. The audit reads a live advisory database, so a new advisory in a test library two days before the deadline could otherwise turn CI red with no change from us; the Day 1 entry already saw 11 high findings in dev tooling.
 Rejected: `CODEOWNERS`. With two members it would only repeat the existing one-approval rule, and it would need a new protection setting and a new screenshot. The self-assessment now gives that reason.
+
+## 2026-11-23 — pa2 tag and its CI run (Khoi, task 9.4)
+
+Tool: Claude Code (Claude Opus 5.5).
+Asked for: tag the submitted commit `pa2`, push it, and put the tag's CI run in `PA2.md`.
+Kept: an annotated tag on `8280aa0` (`main` after PR #17). Its run 45120832451 was green: gitleaks 44 commits with no leaks, dependency audit, lint, format check, type check, 107 tests.
+Changed: the link can only be written after the tag exists, so the tag moves once, to the merge of this PR, as the plan says (task 9.4). `PA2.md` names the run by its commit, so the earlier run is not mistaken for the run on the final tag. Moving the tag force-pushes the tag only; `main` is never force-pushed.
+Rejected: nothing.
